@@ -1,0 +1,144 @@
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/anonymous-pro.min.css");
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/fira-sans.min.css");
+
+.body {
+    margin: 0;
+}
+
+.about h3 {
+    margin-top: 0;
+}
+
+.home_video, .home_video video{
+    width: 90vw;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.logo_header {
+    background-color: #213555;
+    height: 10vh;
+    margin: 0;
+}
+
+.logo_header img {
+    height: 10vh;
+    margin-left: 2rem;
+}
+
+.nav {
+    background-color: #F0F0F0;
+    border-bottom: solid 0.25rem #213555;
+    display: flex;
+    justify-content: space-evenly;
+    padding-block: 0.7rem;
+}
+
+.nav a {
+    color: #191436;
+    font-family: 'Anonymous Pro', sans-serif;
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: .2s ease-in-out;
+}
+
+.nav a:hover{
+    color: #6985A7;
+}
+
+.blue_body{
+    margin: 0;
+    background-color: #4f709c;
+}
+
+.pale_page{
+    margin-inline: 5vw;
+    background-color: #F0F0F0;
+}
+
+.pale_page h2{
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 3rem;
+    margin: 0;
+    margin-inline: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+    border-bottom: solid 0.3rem #213555;
+}
+
+.scrollable_section{
+    display: grid;
+    gap: 1rem;
+    height: 75vh;
+    overflow-y: scroll;
+    padding: 3rem 5rem;
+}
+
+.webpage_square{
+    border: solid 0.1rem black;
+    height: 10vh;
+}
+
+body div h3 {
+    background-color: #4f709c;
+    padding: 0.5rem;
+    color: white;
+}
+
+body div p {
+    margin: 1rem 0;
+    padding: 0 1rem;
+    line-height: 1.5;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form a{
+    color: #191436;
+    font-family: 'Anonymous Pro', sans-serif;
+    font-size: 1.3rem;
+}
+
+form label{
+    font-family: 'Anonymous Pro', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+}
+
+form input{
+    background-color: #d8d8d8;
+    border: solid 1px #d8d8d8;
+    border-radius: 5px;
+    text-align: center;
+    padding-block: 0.5rem;
+    width: 80%;
+}
+
+form input:focus{
+    outline: none;
+}
+
+button{
+    border: none;
+    border-radius: 10px;
+    font-family: 'Anonymous Pro', sans-serif;
+    background-color: #e5d283;
+    text-align: center;
+    font-size: 1.2rem;
+    padding-inline: 1.2rem;
+    padding-block: 0.6rem;
+    box-shadow: 3px 3px #e7e7e7;
+    transition: .2s ease-in-out;
+}
+
+button:hover{
+    background-color: #cbb971;
+    cursor: pointer;
+}

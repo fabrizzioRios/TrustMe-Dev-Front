@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiConnectionUser = axios.create({
-    baseURL: "http://127.0.0.1:8000/test/users"
+    baseURL: "http://127.0.0.1:8000/test/api/v1/users/"
 })
 
 export const getAllUsers = () => apiConnectionUser.get('/');

@@ -3,7 +3,7 @@ import {
     LoginPageTemplate,
     RegisterPageTemplate,
     RegisterUserTemplate,
-    HomePage,
+    HomePage, ListPages, DetailPage, RegisterOpinion,
 
 } from "./blocks/page-components.jsx";
 import { Navigation } from "./navigation/Navigations.jsx";
@@ -21,7 +21,9 @@ function App() {
                 <Route path={"/register-user"} element={< RegisterUserTemplate />}/>
                 {/*<Route path={"/list-user"} element={< UserListTemplate />}/>*/}
                 <Route path={"/register-page"} element={< RegisterPageTemplate />}/>
-                {/*<Route path={"/list-page"} element={< PageListTemplate />}/>*/}
+                <Route path={"/register-opinion"} element={< RegisterOpinion />}/>
+                <Route path={"/list-page"} element={< ListPages />}/>
+                <Route path={"/detail-page"} element={< DetailPage />}/>
                 <Route path={"/home"} element={< HomePage />}/>
             </Routes>
         </BrowserRouter>

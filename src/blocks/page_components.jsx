@@ -1,54 +1,27 @@
-// import {Logo.png} from "trust_me/src/media/img;
-// import "trust_me/src/media/vid/TrustME2.mp4;
-import {Link, useNavigate} from "react-router-dom";
-// import {useEffect, useState} from "react";
-import {addUser} from "../api_axios/user_axios.js";
-import {useForm} from "react-hook-form";
-import {addPage, getAllPages} from "../api_axios/page_axios.js";
-import {makeLogin} from "../api_axios/tools.js";
+import {Link, useNavigate,} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {ReactVideoPage} from "./tools_components.jsx";
+import {useForm} from "react-hook-form";
+import {addPage, getAllPages, getPage, updatePage} from "../api_axios/page_axios.js";
 
-export function LoginPageTemplate() {
-    const { register, handleSubmit, formState: {
-    } } = useForm();
-    const navigate = useNavigate()
-
-    const onSubmit = handleSubmit(async data=> {
-        console.log(data)
-        let loggedUSer = await makeLogin(data)
-        console.log(loggedUSer)
-
-        navigate('/home')
-    })
-  return (
-      <div>
-          <article className="pale_page">
-              <h2>INICIAR SESION</h2>
-              <section className="scrollable_section">
-                  <form onSubmit={onSubmit}>
-                      <label htmlFor="email">Correo Electronico:</label>
-                      <input type="email" id="email" name="email"
-                             {...register("email", {required: true})}/>
-                      <label htmlFor="password">Contraseña:</label>
-                      <input type="password" id="password" name="password"
-                             {...register("password", {required: true})}/>
-                      <Link to={"/register-page"}>Registrarse</Link>
-                      <button>Iniciar Sesion</button>
-                  </form>
-              </section>
-          </article>
-      </div>
-  )
-}
 
 export function RegisterPageTemplate(){
+    const [items, setItems] = useState({data: {success: false}});
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            setItems(userData);
+        }
+    }, []);
     const { register, handleSubmit, formState: {
     } } = useForm();
 
     const onSubmit = handleSubmit(async data=> {
-        const response = await addPage(data);
-        console.log(response)
+        // delete items.data.message.pages
+        data['created_by'] = items.data.message.id
+        await addPage(data);
+        navigate('/list-page')
     })
     return(
         <div className={"blue_body"}>
@@ -119,158 +92,41 @@ export function RegisterPageTemplate(){
                         <label htmlFor={"expirationDate"}>Fecha de expiracion:</label>
                         <input type="date" id="expirationDate" name="expirationDate"
                                {...register("expiration_date", {required: true})}/>
-
+                        <input type="hidden" id="created_by" name="created_by" {...register("created_by")}/>
                         <button>Enviar</button>
                     </form>
                 </section>
             </article>
-        </div>
-    )
-}
-
-export function RegisterUserTemplate() {
-    const { register, handleSubmit, formState: {
-    } } = useForm();
-    const navigate = useNavigate()
-
-    const onSubmit = handleSubmit(async data=> {
-        console.log(data)
-        let addedUSer = await addUser(data)
-        console.log(addedUSer)
-    })
-
-    return(
-        <div>
-            <article className="pale_page">
-                <h1>REGISTRATE</h1>
-                <section className="scrollable_section">
-                    <form onSubmit={onSubmit}>
-                        <label htmlFor="username">Nombre de usuario:</label>
-                        <input type="text" id="username" name="username"
-                               {...register("username", {required: true})}/>
-                        <label htmlFor="first_name">Nombre:</label>
-                        <input type="text" id="first_name" name="first_name"
-                               {...register("first_name", {required: true})}/>
-                        <label htmlFor="last_name">Apellido:</label>
-                        <input type="text" id="last_name" name="last_name"
-                               {...register("last_name", {required: true})}/>
-                        <label htmlFor="email">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email"
-                               {...register("email", {required: true})}/>
-                        <label htmlFor="password">Contraseña:</label>
-                        <input type="password" id="password" name="password"
-                               {...register("password", {required: true})}/>
-                        <label htmlFor={"rfc"}>RFC:</label>
-                        <input type={"text"} id={"rfc"} name={"rfc"}
-                               {...register("rfc", {required: true})}/>
-                        <button>Enviar</button>
-                    </form>
-                </section>
-            </article>
-        </div>
-    )
-}
-
-export function HomePage(){
-
-    return(
-        <div className={"Body"}>
-            <div className="about">
-                <ReactVideoPage/>
-                <h3>Acerca de nosotros</h3>
-                <p>
-                    En TrustMe! estamos dedicados a forjar un mundo en línea más seguro y confiable para individuos y
-                    organizaciones. Con un equipo altamente capacitado y apasionado por la seguridad informática, nos
-                    enorgullece ofrecer soluciones de vanguardia que protegen los activos digitales de nuestros clientes
-                    y preservan su reputación en línea.
-                </p>
-            </div>
-            <div className="ranking">
-                <h3>Nuestra Pasión por la Seguridad Cibernética</h3>
-                <p>
-                    En un entorno digital en constante evolución, la seguridad cibernética se ha convertido en una
-                    prioridad crítica. Nuestra pasión por este campo nos motiva a mantenernos a la vanguardia de las
-                    amenazas y desafíos en línea. Nuestro equipo de expertos trabaja incansablemente para identificar y
-                    abordar las vulnerabilidades de seguridad, brindando así a nuestros clientes la tranquilidad que merecen.
-                </p>
-            </div>
-            <div className="enfoque">
-                <h3>Nuestro Enfoque</h3>
-                <p>
-                    En TrustMe! adoptamos un enfoque integral hacia la seguridad en línea. Ofrecemos una amplia gama de
-                    servicios que incluyen pruebas de penetración, evaluación de vulnerabilidades, auditorías de
-                    seguridad y consultoría experta. Nuestra misión es no solo resolver problemas de seguridad, sino
-                    también educar y empoderar a nuestros clientes para que tomen decisiones informadas en materia de
-                    seguridad cibernética.
-                </p>
-            </div>
-            <div className="excelencia">
-                <h3>Compromiso con la Excelencia</h3>
-                <p>
-                    La excelencia es un principio fundamental en nuestro trabajo. Estamos comprometidos con la mejora
-                    continua de nuestros servicios y la satisfacción de nuestros clientes. Valoramos la confianza que
-                    nuestros clientes depositan en nosotros y nos esforzamos por superar sus expectativas en cada
-                    proyecto que emprendemos.
-                </p>
-            </div>
-            <div className="futuro">
-                <h3>Nuestra Visión para el Futuro</h3>
-                <p>
-                    En TrustMe!, nuestra visión es liderar la industria de la seguridad informática y ser reconocidos
-                    como un socio confiable en la protección de activos digitales. Esperamos contribuir a un mundo en
-                    línea más seguro y colaborativo, donde la seguridad cibernética sea accesible y efectiva para todos.
-                </p>
-            </div>
-            <div className="unete">
-                <h3>Únete a Nosotros</h3>
-                <p>
-                    Te invitamos a unirte a nosotros en esta misión de asegurar un futuro digital más seguro. Juntos,
-                    podemos enfrentar los desafíos cibernéticos y fortalecer la seguridad en línea para todos.
-                </p>
-            </div>
-            <div className="mision">
-                <h3>Mision</h3>
-                <p>
-                    Nuestra misión en TrustMe! es proteger la confianza en línea de nuestros clientes al garantizar la
-                    integridad y seguridad de sus páginas web. Nos comprometemos a brindar soluciones de seguridad
-                    informática líderes en la industria que identifiquen y mitiguen de manera proactiva las
-                    vulnerabilidades, protegiendo así a nuestros clientes de amenazas cibernéticas y asegurando que sus
-                    activos digitales estén resguardados.
-                </p>
-            </div>
-            <div className="vision">
-                <h3>Vision</h3>
-                <p>
-                    En TrustMe! aspiramos a ser reconocidos como líderes indiscutibles en el ámbito de la seguridad info
-                    rmática para páginas web. Buscamos ser la elección predilecta de las empresas y organizaciones que
-                    valoran la seguridad cibernética como una prioridad estratégica. Planeamos lograrlo mediante la
-                    innovación constante, la excelencia en la prestación de servicios y la construcción de relaciones
-                    de confianza a largo plazo con nuestros clientes. Nos esforzamos por ser un referente en la
-                    industria, contribuyendo así a un entorno en línea más seguro y protegido para todos.
-                </p>
-            </div>
         </div>
     )
 }
 
 export function ListPages () {
+    const [items, setItems] = useState({data: {success: false}});
+
     const [pages, setPages] = useState([]);
     useEffect(() => {
         async function getPages(){
             const allPages = await getAllPages();
-            console.log(allPages.data)
             setPages(allPages.data)
         }
         getPages()
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            setItems(userData);
+        }
     }, []);
+
+
     return <div className={"Body"}>
         <h3>Lista de paginas</h3>
         <div className={"scrollable_section"}>
             {pages.map(element_page => (
                 // eslint-disable-next-line react/jsx-key
                 <div className="webpage_square" >
-                    <h3><Link to={"/update-page"}>{element_page.page_name}</Link></h3>
-                    <p>Page administrator: {element_page.admin}<br/>Page url: {element_page.url}</p>
+                    <h3><Link to={"/detail-page"} key={element_page.id} onClick={() =>
+                        JSON.parse(localStorage.setItem("pageData", element_page.id))}>{element_page.page_name}</Link></h3>
+                    <p>Page administrator: {element_page.admin} Page url: {element_page.url} Rating: {}</p>
                 </div>
             ))}
         </div>
@@ -278,17 +134,69 @@ export function ListPages () {
 }
 
 export function DetailPage(){
-    const { register, handleSubmit, formState: {
-    } } = useForm();
+    const [items, setItems] = useState({data: {success: false}});
+    const [page_data, setPageData] = useState([]);
+    const [updated_data, dataPageUpd] = useState([]);
     const navigate = useNavigate()
+    const { setValue, register, handleSubmit} = useForm();
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const storedPageId = JSON.parse(localStorage.getItem('pageData'));
+        if (userData) {
+            setItems(userData);
+        }
+        if (storedPageId){
+            getPageData()
+        }
+        async function getPageData(){
+            const dataFromPage = await getPage(storedPageId);
+            setValue('page_name', dataFromPage.data.page_name)
+            setValue('url', dataFromPage.data.url)
+            setValue('domain_name', dataFromPage.data.domain_name)
+            setValue('name_servers', dataFromPage.data.name_servers)
+            setValue('registrar', dataFromPage.data.registrar)
+            setValue('registrant_name', dataFromPage.data.registrant_name)
+            setValue('registrant_city', dataFromPage.data.registrant_city)
+            setValue('registrant_state', dataFromPage.data.registrant_state)
+            setValue('registrant_country', dataFromPage.data.registrant_country)
+            setValue('admin', dataFromPage.data.admin)
+            setValue('admin_city', dataFromPage.data.admin_city)
+            setValue('admin_country', dataFromPage.data.admin_country)
+            setValue('admin_state', dataFromPage.data.admin_state)
+            setValue('tech_name', dataFromPage.data.tech_name)
+            setValue('tech_city', dataFromPage.data.tech_city)
+            setValue('tech_state', dataFromPage.data.tech_state)
+            setValue('tech_country', dataFromPage.data.tech_country)
+            setValue('biling_name', dataFromPage.data.biling_name)
+            setValue('biling_city', dataFromPage.data.biling_city)
+            setValue('biling_state', dataFromPage.data.biling_state)
+            setValue('domain_name', dataFromPage.data.domain_name)
+            setValue('expiration_date', dataFromPage.data.expiration_date)
+            setValue('expiration_date', dataFromPage.data.expiration_date)
+            setPageData(dataFromPage.data)
+        }
+        if (location.pathname){
+            localStorage.removeItem('pageData');
+        }
+    }, []);
 
-    const onSubmit = handleSubmit(async data=> {
-        console.log(data)
-        let addedUSer = await addUser(data)
-        console.log(addedUSer)
+    const onSubmit = handleSubmit(async submitedPageData=> {
+        const storedPageId = JSON.parse(localStorage.getItem('pageData'));
+
+        async function updatePageData(){
+            const dataPage = await updatePage(storedPageId, submitedPageData);
+            dataPageUpd(dataPage.data)
+            if (location.pathname){
+                localStorage.removeItem('pageData');
+            }
+        }
+        updatePageData()
+        localStorage.removeItem('pageData');
+        navigate('/list-page')
     })
+
     return (
-        <div className={"blue_body"}>
+        <div className={"blue-body"}>
             <article className="pale_page">
                 <h2>ACTUALIZA TU PAGINA</h2>
                 <section className="scrollable_section">
@@ -367,49 +275,29 @@ export function DetailPage(){
     )
 }
 
-export function RegisterOpinion() {
-    return(
-        <div>
+export function UserPages() {
+    const [items, setItems] = useState({data: {success: false}});
 
-            <h1>Publicar Texto</h1>
-            <form className="rating">
-                <label htmlFor="texto">Ingresa tu texto:</label>
-                <textarea id="texto" name="texto" rows="4" cols="50" required></textarea><br/><br/><br/>
-                <div>
-                    <label>
-                        <input type="radio" name="stars" value="1" />
-                        <span className="icon">★</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="stars" value="2" />
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="stars" value="3" />
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="stars" value="4" />
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="stars" value="5" />
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                        <span className="icon">★</span>
-                    </label>
-                </div>
-                <button type="submit">Enviar</button>
-            </form>
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            setItems(userData);
+        }
+    }, []);
+    // const pages = items.data.message.pages
+    if (items && items.data) {
+        return <div className={"Body"}>
+            <h3>Mis paginas</h3>
+            {/*<div className={"scrollable_section"}>*/}
+            {/*    {pages.map(page => (*/}
+            {/*        <div className="webpage_square" >*/}
+            {/*            <h3><Link to={"/update-page"}>{page.page_name}</Link></h3>*/}
+            {/*            <p>Page administrator: {page.admin}<br/>Page url: {page.url}</p>*/}
+            {/*        </div>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
         </div>
-    )
+    }
 }
+
 

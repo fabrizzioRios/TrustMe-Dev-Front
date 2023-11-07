@@ -1,8 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
-import {useForm} from "react-hook-form";
-import {makeLogin} from "../api_axios/tools.js";
-import {useEffect} from "react";
-import {ReactVideoPage} from "./tools_components.jsx";
+import {ReactVideoPage} from "../tools/video_home_component.jsx";
 
 
 export function HomePage(){
@@ -84,54 +80,4 @@ export function HomePage(){
             </div>
         </div>
     )
-}
-
-export function LoginPageTemplate() {
-    const { register, handleSubmit, formState: {
-    } } = useForm();
-    const navigate = useNavigate()
-
-    const onSubmit = handleSubmit(async data=> {
-        console.log(data)
-        let loggedUSer = await makeLogin(data)
-        console.log(loggedUSer)
-        localStorage.setItem('userData', JSON.stringify(loggedUSer));
-        navigate('/home')
-        {window.location.reload(true);}
-
-    })
-    return (
-        <div>
-            <article className="pale_page">
-                <h2>INICIAR SESION</h2>
-                <section className="scrollable_section">
-                    <form onSubmit={onSubmit}>
-                        <label htmlFor="email">Correo Electronico:</label><br/>
-                        <input type="email" id="email" name="email"
-                               {...register("email", {required: true})}/><br/>
-                        <label htmlFor="password">Contraseña:</label><br/>
-                        <input type="password" id="password" name="password"
-                               {...register("password", {required: true})}/><br/>
-                        <button>Iniciar Sesion</button><br/>
-                        <Link to={"/register-user"}>Registrarse</Link>
-                    </form>
-                </section>
-            </article>
-        </div>
-    )
-}
-
-export function LogoutPageTemplate() {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData) {
-            localStorage.removeItem('userData');
-        }
-        window.location.reload(true);
-        navigate('/home');
-    }, [navigate]);
-
-    return null;
 }

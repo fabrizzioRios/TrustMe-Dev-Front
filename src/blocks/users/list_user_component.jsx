@@ -33,10 +33,11 @@ export function ListUsers() {
         // navigate(`/page-list/${pageId}/add-opinion`)
     };
     return (
-        <div>
-            <h1>Lista de usuarios</h1>
+        <div className="Body">
+            <article class="pale_page">
+            <h2>LISTA DE USUARIOS</h2>
             {users.map(element_user => (
-                <div key={element_user.id}>
+                <div key={element_user.id} className="webpage_square">
                     <h3>{element_user.username} - ID: {element_user.id}</h3>
                     <p>
                         RFC: {element_user.rfc}<br />
@@ -53,6 +54,7 @@ export function ListUsers() {
                             </div>
                         ) : element_user.is_staff && element_user.is_superuser ? (
                             <div>
+    
                                 <label>Autenticado como superusuario</label>
                                 <input type="checkbox" checked={true} />
                             </div>
@@ -68,6 +70,7 @@ export function ListUsers() {
                     }
                 </div>
             ))}
+            </article>
         </div>
     );
 }

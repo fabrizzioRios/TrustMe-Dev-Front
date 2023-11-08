@@ -32,7 +32,7 @@ export function RegisterUserTemplate() {
     return(
         <div>
             <article className="pale_page">
-                <h1>REGISTRATE</h1>
+                <h2>REGISTRATE</h2>
                 <section className="scrollable_section">
                     <form onSubmit={onSubmit}>
                         <label htmlFor="username">Nombre de usuario:</label><br/>

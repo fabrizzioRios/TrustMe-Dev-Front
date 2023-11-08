@@ -1,5 +1,5 @@
-/*@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/anonymous-pro.min.css");*/
-/*@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/fira-sans.min.css");*/
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/anonymous-pro.min.css");
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/fira-sans.min.css");
 
 .body {
     margin: 0;
@@ -46,7 +46,51 @@
 .nav a:hover{
     color: #6985A7;
 }
+.tabs {
+    border-block: solid 0.25rem #213555;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 100vw;
+}
 
+.tabs_label {
+    font-family: 'Anonymous Pro', sans-serif;
+    font-size: 1.3vw;
+    border-bottom: transparent solid;
+    padding: 1rem;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.tabs_label:hover {
+    color: #6985A7;
+}
+
+.tabs_radio {
+    display: none;
+}
+
+.tabs_content {
+    order: 1;
+    height: 35vh;
+    width: 100%;
+    font-family: 'Anonymous Pro', sans-serif;
+    font-size: 1.8vw;
+    padding-inline: 10rem;
+    padding-block: 2rem;
+    display: none;
+    transition: .2s ease-in-out;
+}
+
+.tabs_radio:checked + .tabs_label {
+    color: #6985A7;
+    border-bottom: #213555 solid;
+}
+
+.tabs_radio:checked + .tabs_label + .tabs_content {
+    display: initial;
+}
 .blue_body{
     margin: 0;
     background-color: #4f709c;
@@ -55,6 +99,7 @@
 .pale_page{
     margin-inline: 5vw;
     background-color: #F0F0F0;
+
 }
 
 .pale_page h2{
@@ -72,13 +117,28 @@
     display: grid;
     gap: 1rem;
     height: 75vh;
-    overflow-y: scroll;
     padding: 3rem 5rem;
+    overflow-y: scroll;
 }
 
 .webpage_square{
-    border: solid 0.1rem black;
-    height: 10vh;
+
+    height: 45vh;
+    font-family: 'Anonymous Pro', sans-serif;
+    font-size: large;
+}
+
+.webpage_square a{
+    text-decoration: none;
+    display: flex;
+    font-weight: bold;
+    width: 964.08px;
+    height: 4vh;
+    background-color: #6985A7;
+    color:white;
+    border-top: .5rem solid #6985A7;
+    border-bottom: .5rem solid #6985A7;
+    border-left: 2rem solid #6985A7;
 }
 
 body div h3 {
@@ -207,4 +267,8 @@ button:hover{
 .rating label input:focus:not(:checked) ~ .icon:last-child {
     color: #000;
     text-shadow: 0 0 5px #09f;
+}
+footer{
+    height: 5vh;
+    background-color: #cbb971;
 }

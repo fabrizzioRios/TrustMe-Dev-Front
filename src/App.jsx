@@ -35,6 +35,8 @@ function App() {
 
     if (userData) {
         if (is_admin){
+            // SUPER USER ROUTES =============================================================
+            // ===============================================================================
             return (
                 <BrowserRouter>
                     <Navigation/>
@@ -49,9 +51,10 @@ function App() {
                         {/*User urls*/}
                         <Route path={"/register-user"} element={< RegisterUserTemplate/>}/>
                         <Route path={"/register-page"} element={< RegisterPageTemplate/>}/>
+                        <Route path={"/my-profile"} element={< UserProfile/>}/>
 
                         <Route path={"/user-list"} element={< ListUsers/>}/>
-                        <Route path={"/user-list/:user_id/detail"} element={< DetailUser/>}/>
+                        <Route path={"/user/:user_id/detail"} element={< DetailUser/>}/>
                         {/*<Route path={"/user-list/:user_id/opinions"} element={< OpinionsUser/>}/>*/}
 
 
@@ -59,12 +62,15 @@ function App() {
                         <Route path={"/page-list"} element={< ListPages/>}/>
                         <Route path={"/page-list/:page_id/detail"} element={< DetailPage/>}/>
                         <Route path={"/page-list/:page_id/opinions"} element={< OpinionList/>}/>
+                        <Route path={"/page-list/:page_id/:opinion_id/detail"} element={< RegisterOpinion/>}/>
                         <Route path={"/page-list/:page_id/add-opinion"} element={< RegisterOpinion/>}/>
 
                     </Routes>
                 </BrowserRouter>
             )
         } else {
+            // NORMAL USER ROUTES ============================================================
+            // ===============================================================================
             return (
                 <BrowserRouter>
                     <Navigation/>
@@ -75,7 +81,7 @@ function App() {
                         <Route path={"/logout"} element={< LogoutUser/>}/>
 
                         <Route path={"/my-profile"} element={< UserProfile/>}/>
-                        <Route path={"/my-profile/detail"} element={< UserProfileDetail/>}/>
+                        <Route path={"/user/:user_id/detail"} element={< DetailUser/>}/>
 
                         <Route path={"/my-pages"} element={< ListPages/>}/>
                         <Route path={"/my-opinions"} element={< OpinionList/>}/>
@@ -96,6 +102,8 @@ function App() {
             )
         }
     } else {
+        // NON USER ROUTES ===============================================================
+        // ===============================================================================
         return (
             <BrowserRouter>
                 <Navigation/>
@@ -109,7 +117,7 @@ function App() {
                     <Route path={"/register-user"} element={< RegisterUserTemplate/>}/>
 
                     <Route path={"/page-list"} element={< ListPages/>}/>
-                    <Route path={"/page-list/:page_id/opinions"} element={< OpinionListPage/>}/>
+                    <Route path={"/page-list/:page_id/opinions"} element={< OpinionList/>}/>
                 </Routes>
             </BrowserRouter>
         )

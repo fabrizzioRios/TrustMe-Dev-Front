@@ -10,7 +10,7 @@ export const addUser = (user_data) => apiConnectionUser.post('/', user_data)
 
 export const getUser = (user_id) => apiConnectionUser.get(`/${user_id}/`)
 
-export const updateUser = (user_data) => apiConnectionUser.put('/', user_data)
+export const updateUser = (user_id, user_data) => apiConnectionUser.put(`/${user_id}/`, user_data)
 
 export const deleteUser = (user_id) => apiConnectionUser.delete(`/${user_id}/`)
 

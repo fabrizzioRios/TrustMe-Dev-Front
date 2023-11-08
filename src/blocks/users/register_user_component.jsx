@@ -24,6 +24,7 @@ export function RegisterUserTemplate() {
                 console.log(logIn)
                 localStorage.setItem('userData', JSON.stringify(logIn));
                 navigate('/home')
+                window.location.reload(true);
             }
         }
     })

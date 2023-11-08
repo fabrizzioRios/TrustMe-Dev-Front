@@ -21,9 +21,6 @@ export function DetailPage(){
         if (userData){
             setItems(userData);
             getPageData()
-            if (location.pathname){
-                localStorage.setItem('page_id', JSON.stringify(0));
-            }
         } else {
             navigate("/page-list/"+ storedPageId +"/opinions")
         }
@@ -63,29 +60,21 @@ export function DetailPage(){
     }, []);
 
     const onSubmit = handleSubmit(async submitedPageData=> {
-        const storedPageId = JSON.parse(localStorage.getItem('pageData'));
         async function updatePageData(){
-            const dataPage = await updatePage(storedPageId, submitedPageData);
+            const dataPage = await updatePage(page_data.id, submitedPageData);
             if(dataPage){
-                console.log(dataPage)
-                deletePageStoredData()
+                window.location.reload(true);
             }
         }
         updatePageData()
     })
 
-    const handleDelete = async () => {
-        const storedPageId = JSON.parse(localStorage.getItem('pageData'));
-        if (storedPageId) {
-            const deletedPage = await deletePage(storedPageId);
-            if (deletedPage) {
-                deletePageStoredData();
-            }
+    const regresarMyPages = async () => {
+        if (is_admin){
+            navigate('/page-list')
+        } else {
+            navigate('/my-pages')
         }
-    };
-    function deletePageStoredData(){
-        localStorage.setItem('page_id', JSON.stringify(0));
-        navigate('/list-page')
     }
     return (
         <div className={"blue-body"}>
@@ -160,8 +149,8 @@ export function DetailPage(){
                                {...register("expiration_date", {required: true})}/>
 
                         <button type={"submit"}>Enviar</button>
-                        <button type={"button"} onClick={handleDelete}>Eliminar</button>
                     </form>
+                    <button onClick={regresarMyPages}>Regresar</button>
                 </section>
             </article>
         </div>

@@ -5,6 +5,7 @@ export function Navigation() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userId = JSON.parse(localStorage.getItem('user_id'));
     const is_admin = JSON.parse(localStorage.getItem('is_admin'));
+    const page_id = JSON.parse(localStorage.getItem('is_admin'));
 
     useEffect(() => {
         if (userData) {
@@ -20,7 +21,7 @@ export function Navigation() {
                     <div className="nav">
                         <Link to={"/home"}>Home</Link>
                         <Link to={"/page-list"}>Lista de paginas</Link>
-                        <Link to={"/users-list"}>Lista de usuarios</Link>
+                        <Link to={"/user-list"}>Lista de usuarios</Link>
                         <Link to={"/opinions-list"}>Lista de opiniones</Link>
                         <Link to={"/my-profile"}>Mi perfil</Link>
                         <Link to={"/register-page"}>Registrar Página</Link>

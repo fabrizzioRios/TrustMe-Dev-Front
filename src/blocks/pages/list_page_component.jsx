@@ -45,7 +45,8 @@ export function ListPages () {
         if (pageUsePath === '/my-pages' && userData) {
             return (
                 <div className="Body">
-                    <h3>Mis páginas</h3>
+                    <article class="pale_page">
+                    <h2>MIS PÁGINAS</h2>
                     <div className="scrollable_section">
                         {pages.map(element_page => {
                             const rating_array = []
@@ -112,12 +113,14 @@ export function ListPages () {
                             }
                         })}
                     </div>
+                    </article>
                 </div>
             );
         } else if (is_admin) {
             return (
                 <div className="Body">
-                    <h3>Mis páginas</h3>
+                    <article class="pale_page">
+                    <h2>MIS PÁGINAS</h2>
                     <div className="scrollable_section">
                         {pages.map(element_page => {
                             const rating_array = [];
@@ -129,7 +132,7 @@ export function ListPages () {
                             };
                             if (element_page.created_by === userId) {
                                 return (
-                                    <div key={element_page.id}>
+                                    <div key={element_page.id} className="webpage_square">
                                         <h3>
 
                                             {element_page.page_name}
@@ -190,13 +193,15 @@ export function ListPages () {
                             }
                         })}
                     </div>
+                    </article>
                 </div>
             );
         } else if (pageUsePath === '/page-list' || !userData) {
             return (
                 <div className="Body">
-                    <h1>Lista de paginas</h1>
-                    <div className="scrollable_section">
+                    <article class="pale_page">
+                    <h2>PÁGINAS VERIFICADAS</h2>
+                    <section className="scrollable_section">
                         {pages.map(element_page => {
                             const rating_array = []
                             element_page.opinions.map(elementop => {
@@ -206,11 +211,11 @@ export function ListPages () {
                                 return arr.reduce((acc, val) => acc + val, 0) / arr.length;
                             };
                             return (
-                                <div key={element_page.id}>
+                                <div key={element_page.id} className="webpage_square">
                                     <h3>
                                         <Link to={`/page-list/${element_page.id}/opinions`} onClick={() =>
                                             localStorage.setItem("page_id", element_page.id)
-                                        }>
+                                        } >
                                             {element_page.page_name}
                                         </Link>
                                     </h3>
@@ -266,7 +271,8 @@ export function ListPages () {
                                 </div>
                             );
                         })}
-                    </div>
+                    </section>
+                    </article>
                 </div>
             );
         }

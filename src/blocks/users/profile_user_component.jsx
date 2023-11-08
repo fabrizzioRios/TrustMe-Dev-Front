@@ -22,8 +22,8 @@ export function UserProfile(){
     }
     if (user){
         return(
-            <div>
-                <h2>Mi perfil</h2>
+            <div className="webpage_square">
+                <h3>Mi perfil</h3>
                 <p>
                     Username: {user.username}<br/>
                     Correo electronico: {user.email}<br/>

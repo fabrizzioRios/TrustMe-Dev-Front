@@ -57,7 +57,8 @@ export function OpinionList(){
     if (pageUsePath === '/my-opinions' && userData) {
         return (
             <div className="Body">
-                <h3>Mis opiniones</h3>
+                <article className="pale_page">
+                <h2>MIS OPINIONES</h2>
                 <div className="scrollable_section">
                     {opinions.map(opinion_page => {
                         if (opinion_page.user === userId) {
@@ -76,17 +77,19 @@ export function OpinionList(){
                         }
                     })}
                 </div>
+                </article>
             </div>
         );
     }else if (pageUsePath === `/opinions-list` && userData){
         return <div className={"Body"}>
-            <h3>Lista de opiniones</h3>
+            <article className="pale_page">
+            <h2>LISTA DE OPINIONES</h2>
             <div className={"scrollable_section"}>
                 {opinions.map(opinion_page => {
                     console.log(opinion_page.id)
 
                     return (
-                        <div key={opinion_page.id}>
+                        <div key={opinion_page.id} className="webpage_square">
                             <h3>{opinion_page.title}</h3>
                             <p>
                                 Descripcion: {opinion_page.descripcion}<br/>
@@ -101,17 +104,19 @@ export function OpinionList(){
                     );
                 })}
             </div>
+            </article>
         </div>
     } else if (pageUsePath === `/page-list/${pageId}/opinions`){
         if (userId === pageCreatedBy || !userData){
             return <div className={"Body"}>
-                <h3>Opiniones de mi pagina</h3>
+                <article className="pale_page">
+                <h2>OPINIONES DE MI PÁGINA</h2>
                 <button onClick={goBackPage}>Regresar</button>
                 <div className={"scrollable_section"}>
                     {opinions.map(opinion_page => {
                         if (opinion_page.page_id === pageId)
                             return (
-                                <div key={opinion_page.id}>
+                                <div key={opinion_page.id} className="webpage_square">
                                     <h3>{opinion_page.title}</h3>
                                     <p>
                                         Descripcion: {opinion_page.descripcion}<br/>
@@ -124,17 +129,19 @@ export function OpinionList(){
                             );
                     })}
                 </div>
+                </article>
             </div>
         } else {
             return <div className={"Body"}>
-                <h3>Opiniones de la pagina</h3>
+                <article className="pale_page">
+                <h2>OPINIONES DE LA PÁGINA</h2>
                 <button onClick={handleAddOpinion}>Añadir opinion</button>
                 <button onClick={goBackPage}>Regresar</button>
                 <div className={"scrollable_section"}>
                     {opinions.map(opinion_page => {
                         if (opinion_page.page_id === pageId)
                             return (
-                                <div key={opinion_page.id}>
+                                <div key={opinion_page.id} className="webpage_square">
                                     <h3>{opinion_page.title}</h3>
                                     <p>
                                         Descripcion: {opinion_page.descripcion}<br/>
@@ -147,6 +154,7 @@ export function OpinionList(){
                             );
                     })}
                 </div>
+                </article>
             </div>
         }
 

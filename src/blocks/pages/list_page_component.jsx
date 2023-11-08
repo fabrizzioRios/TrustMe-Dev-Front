@@ -58,7 +58,7 @@ export function ListPages () {
                             };
                             if (element_page.created_by === userId) {
                                 return (
-                                    <div key={element_page.id}>
+                                    <div key={element_page.id} className="webpage_square">
                                         <h3>{element_page.page_name}</h3>
                                         <div>
                                             Page administrator: {element_page.admin}<br/>

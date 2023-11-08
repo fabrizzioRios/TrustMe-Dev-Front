@@ -23,7 +23,8 @@ export function UserProfile(){
     if (user){
         return(
             <div className="webpage_square">
-                <h3>Mi perfil</h3>
+                <article class="pale_page">
+                <h2>MI PERFIL</h2>
                 <p>
                     Username: {user.username}<br/>
                     Correo electronico: {user.email}<br/>
@@ -31,6 +32,7 @@ export function UserProfile(){
                     RFC: {user.rfc}
                 </p>
                 <button onClick={() => updateUser(user.id)}>Editar</button>
+            </article>
             </div>
         )
     }
